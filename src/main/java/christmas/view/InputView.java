@@ -1,24 +1,25 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.view.constant.IllegalArgumentExceptionType;
 
 public class InputView {
-    public int readDate() {
-        System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
-        String input = Console.readLine();
-        return convertToIntegerValue(input);
+
+    private InputView() {
     }
 
-    private static int convertToIntegerValue(String inputStringValue) {
+    // 방문 날짜를 받고 1~31 날짜 검증
+    public static int readDate() {
+        System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (1부터 31까지의 숫자만 입력해 주세요!)");
         try {
-            long changeLongValue = Long.parseLong(inputStringValue);
-            if (changeLongValue < Integer.MIN_VALUE || changeLongValue > Integer.MAX_VALUE) {
-                throw new IllegalArgumentException(
-                        "[ERROR] : 구입 금액은 " + Integer.MIN_VALUE + "에서" + Integer.MAX_VALUE + "사이의 값이어야 합니다");
+            String input = Console.readLine();
+            if (Integer.parseInt(input) < 1 || Integer.parseInt(input) > 31) {
+                throw IllegalArgumentExceptionType.DECEMBER_DATE_OUT_OF_RANGE.getException();
             }
-            return (int) changeLongValue;
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 숫자만 입력이 가능해요");
+            throw IllegalArgumentExceptionType.NOT_NUMBER.getException();
         }
     }
 }
+
