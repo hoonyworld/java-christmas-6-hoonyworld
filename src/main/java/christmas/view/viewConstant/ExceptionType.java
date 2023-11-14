@@ -1,4 +1,4 @@
-package christmas.view.constant;
+package christmas.view.viewConstant;
 
 public interface ExceptionType<T> {
     String getMessage();
