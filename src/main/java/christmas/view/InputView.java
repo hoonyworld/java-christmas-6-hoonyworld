@@ -17,10 +17,11 @@ public class InputView {
         System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (1부터 31까지의 숫자만 입력해 주세요!)");
         try {
             String input = Console.readLine();
-            if (Integer.parseInt(input) < 1 || Integer.parseInt(input) > 31) {
+            int date = Integer.parseInt(input);
+            if (date < 1 || date > 31) {
                 throw IllegalArgumentExceptionType.DECEMBER_DATE_OUT_OF_RANGE.getException();
             }
-            return Integer.parseInt(input);
+            return date;
         } catch (NumberFormatException e) {
             throw IllegalArgumentExceptionType.DECEMBER_DATE_OUT_OF_RANGE.getException();
         }
