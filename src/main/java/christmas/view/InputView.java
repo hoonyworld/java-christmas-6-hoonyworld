@@ -26,15 +26,15 @@ public class InputView {
         }
     }
 
-    public static Map<String, Integer> readMenuAndMenuCount() {
+    public static Map<Menu, Integer> readMenuAndMenuCount() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         String input = Console.readLine();
         return validateMenuInput(input);
     }
 
-    private static Map<String, Integer> validateMenuInput(String input) {
+    private static Map<Menu, Integer> validateMenuInput(String input) {
         String[] menuItems = input.split(",");
-        Map<String, Integer> menuOrder = new HashMap<>();
+        Map<Menu, Integer> menuOrder = new HashMap<>();
 
         for (String menuItem : menuItems) {
             processMenuItem(menuItem, menuOrder);
@@ -42,15 +42,15 @@ public class InputView {
         return menuOrder;
     }
 
-    private static void processMenuItem(String menuItem, Map<String, Integer> menuOrder) {
+    private static void processMenuItem(String menuItem, Map<Menu, Integer> menuOrder) {
         String[] menuDetails = menuItem.split("-");
         String menuName = menuDetails[0];
         validateMenuFormat(menuDetails);
         int menuCount = parseMenuCount(menuDetails[1]);
-        validateMenuExist(menuName);
+        Menu menu = validateMenuExist(menuName);
         validateMenuCount(menuCount);
-        validateMenuDuplicate(menuName, menuOrder);
-        menuOrder.put(menuName, menuCount);
+        validateMenuDuplicate(menu, menuOrder);
+        menuOrder.put(menu, menuCount);
     }
 
     private static int parseMenuCount(String menuCountStr) {
@@ -61,8 +61,8 @@ public class InputView {
         }
     }
 
-    private static void validateMenuDuplicate(String menuName, Map<String, Integer> menuOrder) {
-        if (menuOrder.containsKey(menuName)) {
+    private static void validateMenuDuplicate(Menu menu, Map<Menu, Integer> menuOrder) {
+        if (menuOrder.containsKey(menu)) {
             throw IllegalArgumentExceptionType.INVALID_ORDER.getException();
         }
     }
@@ -73,10 +73,11 @@ public class InputView {
         }
     }
 
-    private static void validateMenuExist(String menuName) {
-        if (Arrays.stream(Menu.values()).noneMatch(menu -> menu.getName().equals(menuName))) {
-            throw IllegalArgumentExceptionType.INVALID_ORDER.getException();
-        }
+    private static Menu validateMenuExist(String menuName) {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.getName().equals(menuName))
+                .findFirst()
+                .orElseThrow(IllegalArgumentExceptionType.INVALID_ORDER::getException);
     }
 
     private static void validateMenuCount(int menuCount) {
