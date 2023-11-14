@@ -48,33 +48,39 @@ public class OutputView {
                                             int specialDiscount, Event event) {
         System.out.println("<혜택 내역>");
         List<String> benefits = new ArrayList<>();
-        if (christmasDayDiscount != 0) {
-            benefits.add("크리스마스 디데이 할인: " + "-" + formatPrice(christmasDayDiscount) + "원");
+        addBenefit(benefits, "크리스마스 디데이 할인", christmasDayDiscount);
+        addBenefit(benefits, "평일 할인", weekdayDiscount);
+        addBenefit(benefits, "주말 할인", weekendDiscount);
+        addBenefit(benefits, "특별 할인", specialDiscount);
+        addBenefit(benefits, "증정 이벤트", event.getDiscount());
+
+        printBenefits(benefits);
+        System.out.println();
+    }
+
+    private static void addBenefit(List<String> benefits, String benefitName, int discount) {
+        if (discount != 0) {
+            benefits.add(benefitName + ": " + "-" + formatPrice(discount) + "원");
         }
-        if (weekdayDiscount != 0) {
-            benefits.add("평일 할인: " + "-" + formatPrice(weekdayDiscount) + "원");
-        }
-        if (weekendDiscount != 0) {
-            benefits.add("주말 할인: " + "-" + formatPrice(weekendDiscount) + "원");
-        }
-        if (specialDiscount != 0) {
-            benefits.add("특별 할인: " + "-" + formatPrice(specialDiscount) + "원");
-        }
-        if (event.getDiscount() != 0) {
-            benefits.add("증정 이벤트: " + "-" + formatPrice(event.getDiscount()) + "원");
-        }
+    }
+
+    private static void printBenefits(List<String> benefits) {
         if (benefits.isEmpty()) {
             System.out.println("없음");
+            return;
         }
-        for (String benefit : benefits) {
-            System.out.println(benefit);
-        }
-        System.out.println();
+        benefits.forEach(System.out::println);
     }
 
     public static void printTotalBenefits(int totalBenefits) {
         System.out.println("<총혜택 금액>");
-        System.out.println("-" + formatPrice(totalBenefits) + "원");
+        String formattedTotalBenefits = formatPrice(totalBenefits);
+
+        if (totalBenefits != 0) {
+            formattedTotalBenefits = "-" + formattedTotalBenefits;
+        }
+
+        System.out.println(formattedTotalBenefits + "원");
         System.out.println();
     }
 
