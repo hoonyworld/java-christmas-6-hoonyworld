@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.constant;
 
 public enum Menu {
     CAESAR_SALAD("시저샐러드", 8000, "애피타이저"),
