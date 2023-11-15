@@ -15,27 +15,33 @@ public class InputView {
 
     // 방문 날짜를 받고 1~31 날짜 검증
     public static int readDate() {
-        System.out.println(MessageConstant.WELCOME_MESSAGE);
-        System.out.println(MessageConstant.DATE_PROMPT_MESSAGE);
         try {
+            System.out.println(MessageConstant.WELCOME_MESSAGE);
+            System.out.println(MessageConstant.DATE_PROMPT_MESSAGE);
             String input = Console.readLine();
             int date = Integer.parseInt(input);
             if (date < NumberConstant.MIN_DATE || date > NumberConstant.MAX_DATE) {
                 throw IllegalArgumentExceptionType.DECEMBER_DATE_OUT_OF_RANGE.getException();
             }
             return date;
-        } catch (NumberFormatException e) {
-            throw IllegalArgumentExceptionType.DECEMBER_DATE_OUT_OF_RANGE.getException();
+        } catch (IllegalArgumentException e) {
+            System.out.println(IllegalArgumentExceptionType.DECEMBER_DATE_OUT_OF_RANGE.getMessage());
+            return readDate();
         }
     }
 
     public static Map<Menu, Integer> readMenuAndMenuCount() {
-        System.out.println(MessageConstant.MENU_ORDER_PROMPT_MESSAGE);
-        String input = Console.readLine();
-        Map<Menu, Integer> menuOrder = validateMenuInput(input);
-        validateTotalOrder(menuOrder);
-        validateDrinkOnlyOrder(menuOrder);
-        return menuOrder;
+        try {
+            System.out.println(MessageConstant.MENU_ORDER_PROMPT_MESSAGE);
+            String input = Console.readLine();
+            Map<Menu, Integer> menuOrder = validateMenuInput(input);
+            validateTotalOrder(menuOrder);
+            validateDrinkOnlyOrder(menuOrder);
+            return menuOrder;
+        } catch (IllegalArgumentException e) {
+            System.out.println(IllegalArgumentExceptionType.INVALID_ORDER.getMessage());
+            return readMenuAndMenuCount();
+        }
     }
 
     private static Map<Menu, Integer> validateMenuInput(String input) {
