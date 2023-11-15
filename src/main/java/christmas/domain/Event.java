@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.constant.ChristmasConstant;
 import christmas.constant.Menu;
 
 public class Event {
@@ -20,11 +21,11 @@ public class Event {
     }
 
     public static Event createChampagneEvent(int totalBeforeDiscount) {
-        String eventName = "없음";
+        String eventName = ChristmasConstant.NO_CHAMPAGNE;
         int discount = 0;
-        if (totalBeforeDiscount >= 120000) {
-            eventName = Menu.CHAMPAGNE.getName() + " 1개";
-            discount = 25000;
+        if (totalBeforeDiscount >= ChristmasConstant.GIVE_CHAMPAGNE_THRESHOLD) {
+            eventName = Menu.CHAMPAGNE.getName() + " " + ChristmasConstant.ONE_CHAMPAGNE_SERVE;
+            discount = ChristmasConstant.CHAMPAGNE_DISCOUNT_AMOUNT;
         }
         return new Event(eventName, discount);
     }
