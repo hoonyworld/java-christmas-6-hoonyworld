@@ -1,6 +1,5 @@
 package christmas.controller;
 
-import christmas.constant.Day;
 import christmas.constant.Menu;
 import christmas.domain.Badge;
 import christmas.domain.Discount;
@@ -9,7 +8,6 @@ import christmas.domain.Order;
 import christmas.domain.PriceBenefit;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import java.util.List;
 import java.util.Map;
 
 public class ChristmasController {
@@ -24,8 +22,7 @@ public class ChristmasController {
         int christmasDayDiscount = priceBenefit.calculateChristmasDayDiscount(date);
         int weekdayDiscount = priceBenefit.calculateWeekdayDiscount(date);
         int weekendDiscount = priceBenefit.calculateWeekendDiscount(date);
-        List<Integer> starDays = Day.STARDAY.getDays();
-        int specialDiscount = priceBenefit.calculateSpecialDiscount(starDays.contains(date));
+        int specialDiscount = priceBenefit.calculateSpecialDiscount(date);
 
         OutputView.printDate(date);
         OutputView.printMenu(order.getOrderItems());
@@ -35,7 +32,7 @@ public class ChristmasController {
         Event event = Event.createChampagneEvent(totalBeforeDiscount);
         OutputView.printBenefitsDetails(christmasDayDiscount, weekdayDiscount, weekendDiscount, specialDiscount, event);
 
-        int totalDiscount = priceBenefit.calculateTotalDiscount(date, starDays.contains(date));
+        int totalDiscount = priceBenefit.calculateTotalDiscount(date);
         Discount discount = new Discount(totalBeforeDiscount, totalDiscount, event);
 
         OutputView.printTotalBenefits(discount.calculateTotalBenefits());
@@ -45,6 +42,3 @@ public class ChristmasController {
         OutputView.printBadge(badge);
     }
 }
-
-
-
