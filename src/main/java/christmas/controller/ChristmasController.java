@@ -12,26 +12,55 @@ import java.util.Map;
 
 public class ChristmasController {
     public void run() {
-        int date = InputView.readDate();
-        Map<Menu, Integer> menuOrder = InputView.readMenuAndMenuCount();
+        int date = getDate();
+        Map<Menu, Integer> menuOrder = getMenuOrder();
 
-        Order order = new Order(menuOrder);
-        int totalBeforeDiscount = order.calculateTotalPrice();
+        Order order = createOrder(menuOrder);
+        PriceBenefit priceBenefit = createPriceBenefit(order);
 
-        PriceBenefit priceBenefit = new PriceBenefit(order.getOrderItems());
-        int christmasDayDiscount = priceBenefit.calculateChristmasDayDiscount(date);
-        int weekdayDiscount = priceBenefit.calculateWeekdayDiscount(date);
-        int weekendDiscount = priceBenefit.calculateWeekendDiscount(date);
-        int specialDiscount = priceBenefit.calculateSpecialDiscount(date);
+        printOrderDetails(date, order);
+        printDiscountDetails(priceBenefit, date, order);
+    }
 
+    private int getDate() {
+        return InputView.readDate();
+    }
+
+    private Map<Menu, Integer> getMenuOrder() {
+        return InputView.readMenuAndMenuCount();
+    }
+
+    private Order createOrder(Map<Menu, Integer> menuOrder) {
+        return new Order(menuOrder);
+    }
+
+    private PriceBenefit createPriceBenefit(Order order) {
+        return new PriceBenefit(order.getOrderItems());
+    }
+
+    private void printOrderDetails(int date, Order order) {
         OutputView.printDate(date);
         OutputView.printMenu(order.getOrderItems());
-        OutputView.printTotalPriceBeforeDiscount(totalBeforeDiscount);
-        OutputView.printBenefits(totalBeforeDiscount);
+        OutputView.printTotalPriceBeforeDiscount(order.calculateTotalPrice());
+    }
 
+    private void printDiscountDetails(PriceBenefit priceBenefit, int date, Order order) {
+        int totalBeforeDiscount = order.calculateTotalPrice();
         Event event = Event.createChampagneEvent(totalBeforeDiscount);
-        OutputView.printBenefitsDetails(christmasDayDiscount, weekdayDiscount, weekendDiscount, specialDiscount, event);
 
+        OutputView.printBenefits(totalBeforeDiscount);
+        OutputView.printBenefitsDetails(
+                priceBenefit.calculateChristmasDayDiscount(date),
+                priceBenefit.calculateWeekdayDiscount(date),
+                priceBenefit.calculateWeekendDiscount(date),
+                priceBenefit.calculateSpecialDiscount(date),
+                event
+        );
+
+        printFinalDetails(priceBenefit, date, totalBeforeDiscount, event);
+    }
+
+    private void printFinalDetails(PriceBenefit priceBenefit, int date, int totalBeforeDiscount, Event event) {
         int totalDiscount = priceBenefit.calculateTotalDiscount(date);
         Discount discount = new Discount(totalBeforeDiscount, totalDiscount, event);
 
