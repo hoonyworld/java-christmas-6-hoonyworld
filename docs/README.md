@@ -25,9 +25,9 @@
 ### ✅ 0점 방지 기본 규칙
 
 - [X]  java -version 17 확인
-- [ ]  프로그램 구현 완료 시 `ApplicationTest`의 모든 테스트가 성공
-- [ ]  기능 구현을 모두 정상적으로 했더라도 요구사항에 명시된 출력값 형식을 지켜야 함
-- [ ]  `./gradlew.bat clean test` BUILD SUCCESSFUL 확인
+- [X]  프로그램 구현 완료 시 `ApplicationTest`의 모든 테스트가 성공
+- [X]  기능 구현을 모두 정상적으로 했더라도 요구사항에 명시된 출력값 형식을 지켜야 함
+- [X]  `./gradlew.bat clean test` BUILD SUCCESSFUL 확인
 
 ### ✅ 기능 요구 사항
 
@@ -38,7 +38,7 @@
 - [X]  평일 할인(**일요일** ~ 목요일)
     - 디저트 메뉴(초코케이크, 아이스크림) 1개당 2023원씩 할인
     - ex) 초코케이크 2개, 아이스크림 1개 → 2023 * 3 = 6069원 할인
-- [ ]  주말 할인(**금요일** ~ 토요일)
+- [X]  주말 할인(**금요일** ~ 토요일)
     - 메인 메뉴(티본스테이크, 바비큐립, 해산물파스타, 크리스마스파스타) 1개당 2023원씩 할인
     - ex) 티본1개, 바비큐1개, 해산물2개, 크리스마스1개 → 2023*5 = 10115원 할인
 - [X]  특별 할인
@@ -223,35 +223,35 @@
 
 > **제출 전 확인 리스트**
 >
-> - [ ]  JDK-17 사용
-> - [ ]  프로그램 실행의 시작점은 `Application`의 `main()`
-> - [ ]  `build.gradle` 변경 불가, 외부 라이브러리 사용 금지
-> - [ ]  [Java 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/master/styleguide/java)가이드를 준수하며 프로그래밍
-> - [ ]  프로그램 종료 시`System.exit()`를 호출 X
-> - [ ]  프로그램 구현 완료 시 `ApplicationTest`의 모든 테스트가 성공
-> - [ ]  프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름을 수정하거나 이동 X
-> - [ ]  indent(인덴트, 들여쓰기) depth를 3이 넘지 않도록 구현, 2까지만 허용
-> - [ ]  3항 연산자 사용 X
-> - [ ]  함수(또는 메서드)가 한 가지 일만 하도록 최대한 작게 만들 것
-> - [ ]  JUnit 5와 AssertJ를 이용하여 본인이 정리한 기능 목록이 정상 동작함을 테스트 코드로 확인
-> - [ ]  함수(또는 메서드)의 길이가 15라인을 넘어가지 않도록 구현
-> - [ ]  함수(또는 메서드)가 한 가지 일만 잘하도록 구현
-> - [ ]  else, switch/case를 쓰지 X (if 조건절에서 값을 return 하는 방식으로 구현)
-> - [ ]  Java Enum을 적용
-> - [ ]  도메인 로직에 단위 테스트를 구현해야 한다. 단, UI(System.out, System.in, Scanner) 로직은 제외한다.
-> - [ ]  핵심 로직을 구현하는 코드와 UI를 담당하는 로직을 분리해 구현한다
-> - [ ]  사용자가 잘못된 값을 입력할 경우 `IllegalArgumentException`을 발생 시킨 후 “[ERROR]”로 시작하는 에러 메시지 출력 후 그 부분부터 입력을 다시
+> - [X]  JDK-17 사용
+> - [X]  프로그램 실행의 시작점은 `Application`의 `main()`
+> - [X]  `build.gradle` 변경 불가, 외부 라이브러리 사용 금지
+> - [X]  [Java 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/master/styleguide/java)가이드를 준수하며 프로그래밍
+> - [X]  프로그램 종료 시`System.exit()`를 호출 X
+> - [X]  프로그램 구현 완료 시 `ApplicationTest`의 모든 테스트가 성공
+> - [X]  프로그래밍 요구 사항에서 달리 명시하지 않는 한 파일, 패키지 이름을 수정하거나 이동 X
+> - [X]  indent(인덴트, 들여쓰기) depth를 3이 넘지 않도록 구현, 2까지만 허용
+> - [X]  3항 연산자 사용 X
+> - [X]  함수(또는 메서드)가 한 가지 일만 하도록 최대한 작게 만들 것
+> - [X]  JUnit 5와 AssertJ를 이용하여 본인이 정리한 기능 목록이 정상 동작함을 테스트 코드로 확인
+> - [X]  함수(또는 메서드)의 길이가 15라인을 넘어가지 않도록 구현
+> - [X]  함수(또는 메서드)가 한 가지 일만 잘하도록 구현
+> - [X]  else, switch/case를 쓰지 X (if 조건절에서 값을 return 하는 방식으로 구현)
+> - [X]  Java Enum을 적용
+> - [X]  도메인 로직에 단위 테스트를 구현해야 한다. 단, UI(System.out, System.in, Scanner) 로직은 제외한다.
+> - [X]  핵심 로직을 구현하는 코드와 UI를 담당하는 로직을 분리해 구현한다
+> - [X]  사용자가 잘못된 값을 입력할 경우 `IllegalArgumentException`을 발생 시킨 후 “[ERROR]”로 시작하는 에러 메시지 출력 후 그 부분부터 입력을 다시
     받음. `Exception`이 아닌 , `IllegalStateException` 등과 같은 명확한 유형을 처리함.
 >
 > **추가된 요구 사항**
 >
-> - [ ]  아래 있는`InputView`,`OutputView`클래스를 참고하여 입출력 클래스를 구현
-> - [ ]  입력과 출력을 담당하는 클래스를 별도로 구현
-> - [ ]  해당 클래스의 패키지, 클래스명, 메서드의 반환 타입과 시그니처는 자유롭게 구현 가능
+> - [X]  아래 있는`InputView`,`OutputView`클래스를 참고하여 입출력 클래스를 구현
+> - [X]  입력과 출력을 담당하는 클래스를 별도로 구현
+> - [X]  해당 클래스의 패키지, 클래스명, 메서드의 반환 타입과 시그니처는 자유롭게 구현 가능
 >
 >  **라이브러리 요구 사항**
 >
-> - [ ]  `camp.nextstep.edu.missionutils`에서 제공하는 `Console` API를 사용하여 구현
+> - [X]  `camp.nextstep.edu.missionutils`에서 제공하는 `Console` API를 사용하여 구현
     >
     >     사용자가 입력하는 값은`camp.nextstep.edu.missionutils.Console`의`readLine()`을 활용
 >
@@ -261,8 +261,8 @@
 - [X]  [java-christmas-6](https://github.com/woowacourse-precourse/java-christmas-6)저장소를 비공개 저장소로 생성
 - [X]  기능 구현 전 docs/README.md에 구현할 기능 목록을 정리해 추가
 - [X]  Git의 커밋 단위는 앞 단계에서`docs/README.md`에 정리한 기능 목록 단위로 추가
-- [ ]  우아한테크코스 지원 플랫폼에 소감 작성 후 제출
-- [ ]  제출한 후 결과 확인, 통과하지 못했다면 수정해 다시 제출
+- [X]  우아한테크코스 지원 플랫폼에 소감 작성 후 제출
+- [X]  제출한 후 결과 확인, 통과하지 못했다면 수정해 다시 제출
 
 ### ✅ 추가 학습 목표
 
