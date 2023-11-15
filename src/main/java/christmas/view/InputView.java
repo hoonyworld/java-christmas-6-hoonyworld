@@ -3,23 +3,24 @@ package christmas.view;
 import camp.nextstep.edu.missionutils.Console;
 import christmas.constant.Menu;
 import christmas.view.viewConstant.IllegalArgumentExceptionType;
+import christmas.view.viewConstant.MessageConstant;
+import christmas.view.viewConstant.NumberConstant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class InputView {
-
     private InputView() {
     }
 
     // 방문 날짜를 받고 1~31 날짜 검증
     public static int readDate() {
-        System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
-        System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
+        System.out.println(MessageConstant.WELCOME_MESSAGE);
+        System.out.println(MessageConstant.DATE_PROMPT_MESSAGE);
         try {
             String input = Console.readLine();
             int date = Integer.parseInt(input);
-            if (date < 1 || date > 31) {
+            if (date < NumberConstant.MIN_DATE || date > NumberConstant.MAX_DATE) {
                 throw IllegalArgumentExceptionType.DECEMBER_DATE_OUT_OF_RANGE.getException();
             }
             return date;
@@ -29,9 +30,12 @@ public class InputView {
     }
 
     public static Map<Menu, Integer> readMenuAndMenuCount() {
-        System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
+        System.out.println(MessageConstant.MENU_ORDER_PROMPT_MESSAGE);
         String input = Console.readLine();
-        return validateMenuInput(input);
+        Map<Menu, Integer> menuOrder = validateMenuInput(input);
+        validateTotalOrder(menuOrder);
+        validateDrinkOnlyOrder(menuOrder);
+        return menuOrder;
     }
 
     private static Map<Menu, Integer> validateMenuInput(String input) {
@@ -42,6 +46,20 @@ public class InputView {
             processMenuItem(menuItem, menuOrder);
         }
         return menuOrder;
+    }
+
+    private static void validateTotalOrder(Map<Menu, Integer> menuOrder) {
+        int totalOrder = menuOrder.values().stream().mapToInt(Integer::intValue).sum();
+        if (totalOrder > 20) {
+            throw IllegalArgumentExceptionType.INVALID_ORDER.getException();
+        }
+    }
+
+    private static void validateDrinkOnlyOrder(Map<Menu, Integer> menuOrder) {
+        boolean isDrinkOnly = menuOrder.keySet().stream().allMatch(menu -> menu.getCategory() == Menu.Category.DRINK);
+        if (isDrinkOnly) {
+            throw IllegalArgumentExceptionType.INVALID_ORDER.getException();
+        }
     }
 
     private static void processMenuItem(String menuItem, Map<Menu, Integer> menuOrder) {
@@ -70,7 +88,8 @@ public class InputView {
     }
 
     private static void validateMenuFormat(String[] menuDetails) {
-        if (menuDetails.length != 2 || menuDetails[0].isEmpty() || menuDetails[1].isEmpty()) {
+        if (menuDetails.length != NumberConstant.MENU_DETAILS_LENGTH || menuDetails[0].isEmpty()
+                || menuDetails[1].isEmpty()) {
             throw IllegalArgumentExceptionType.INVALID_ORDER.getException();
         }
     }
@@ -83,7 +102,7 @@ public class InputView {
     }
 
     private static void validateMenuCount(int menuCount) {
-        if (menuCount < 1) {
+        if (menuCount < NumberConstant.MIN_MENU_COUNT) {
             throw IllegalArgumentExceptionType.INVALID_ORDER.getException();
         }
     }
