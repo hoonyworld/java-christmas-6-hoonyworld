@@ -56,7 +56,7 @@ public class InputView {
 
     private static void validateTotalOrder(Map<Menu, Integer> menuOrder) {
         int totalOrder = menuOrder.values().stream().mapToInt(Integer::intValue).sum();
-        if (totalOrder > 20) {
+        if (totalOrder > NumberConstant.TOTAL_ORDER_AMOUNT) {
             throw IllegalArgumentExceptionType.INVALID_ORDER.getException();
         }
     }
