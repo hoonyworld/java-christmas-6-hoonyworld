@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.constant.ChristmasConstant;
 import christmas.constant.Day;
 import christmas.constant.Menu;
 import java.util.List;
@@ -21,49 +22,49 @@ public class PriceBenefit {
     }
 
     public int calculateChristmasDayDiscount(int date) {
-        if (totalPrice < 10000) {
+        if (totalPrice < ChristmasConstant.MIN_TOTAL_PRICE_FOR_EVENT) {
             return 0;
         }
-        if (date >= 1 && date <= 25) {
-            return 1000 + (date - 1) * 100;
+        if (date >= ChristmasConstant.CHRISTMAS_DAY_START && date <= ChristmasConstant.CHRISTMAS_DAY_END) {
+            return ChristmasConstant.CHRISTMAS_DAY_BASE_DISCOUNT + (date - 1) * ChristmasConstant.HUNDRED_WON;
         }
         return 0;
     }
 
     public int calculateWeekdayDiscount(int date) {
-        if (totalPrice < 10000) {
+        if (totalPrice < ChristmasConstant.MIN_TOTAL_PRICE_FOR_EVENT) {
             return 0;
         }
         if (Day.WEEKDAY.getDays().contains(date)) {
             return orderItems.entrySet().stream()
                     .filter(entry -> entry.getKey().getCategory() == Menu.Category.DESSERT)
-                    .mapToInt(entry -> entry.getValue() * 2023)
+                    .mapToInt(entry -> entry.getValue() * ChristmasConstant.WEEKDAY_DESSERT_DISCOUNT)
                     .sum();
         }
         return 0;
     }
 
     public int calculateWeekendDiscount(int date) {
-        if (totalPrice < 10000) {
+        if (totalPrice < ChristmasConstant.MIN_TOTAL_PRICE_FOR_EVENT) {
             return 0;
         }
         if (Day.WEEKEND.getDays().contains(date)) {
             return orderItems.entrySet().stream()
                     .filter(entry -> entry.getKey().getCategory() == Menu.Category.MAIN)
-                    .mapToInt(entry -> entry.getValue() * 2023)
+                    .mapToInt(entry -> entry.getValue() * ChristmasConstant.WEEKEND_MAIN_DISCOUNT)
                     .sum();
         }
         return 0;
     }
 
     public int calculateSpecialDiscount(int date) {
-        if (totalPrice < 10000) {
+        if (totalPrice < ChristmasConstant.MIN_TOTAL_PRICE_FOR_EVENT) {
             return 0;
         }
         List<Integer> starDays = Day.STARDAY.getDays();
         int discount = 0;
         if (starDays.contains(date)) {
-            discount = 1000;
+            discount = ChristmasConstant.SPECIAL_DISCOUNT;
         }
         return discount;
     }
