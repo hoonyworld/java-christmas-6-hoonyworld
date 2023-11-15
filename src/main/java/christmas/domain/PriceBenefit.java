@@ -12,13 +12,7 @@ public class PriceBenefit {
 
     public PriceBenefit(Map<Menu, Integer> orderItems) {
         this.orderItems = orderItems;
-        this.totalPrice = calculateTotalPrice();
-    }
-
-    private int calculateTotalPrice() {
-        return orderItems.entrySet().stream()
-                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
-                .sum();
+        this.totalPrice = OrderCalculator.calculateTotalPrice(orderItems);
     }
 
     public int calculateChristmasDayDiscount(int date) {
