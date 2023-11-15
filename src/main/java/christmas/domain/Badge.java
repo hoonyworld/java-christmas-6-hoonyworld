@@ -1,19 +1,21 @@
 package christmas.domain;
 
+import christmas.constant.ChristmasConstant;
 import java.util.Arrays;
 import java.util.List;
 
 public class Badge {
-    private static final List<String> BADGES = Arrays.asList("별", "트리", "산타");
+    private static final List<String> BADGES = Arrays.asList(ChristmasConstant.STAR_BADGE, ChristmasConstant.TREE_BADGE,
+            ChristmasConstant.SANTA_BADGE);
 
     public static String getBadge(int totalBenefits) {
-        if (totalBenefits >= 20000) {
+        if (totalBenefits >= ChristmasConstant.FIRST_THRESHOLD) {
             return BADGES.get(2);
         }
-        if (totalBenefits >= 10000) {
+        if (totalBenefits >= ChristmasConstant.SECOND_THRESHOLD) {
             return BADGES.get(1);
         }
-        if (totalBenefits >= 5000) {
+        if (totalBenefits >= ChristmasConstant.THIRD_THRESHOLD) {
             return BADGES.get(0);
         }
         return "없음";
