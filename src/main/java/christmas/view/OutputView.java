@@ -2,6 +2,7 @@ package christmas.view;
 
 import christmas.constant.Menu;
 import christmas.domain.Event;
+import christmas.view.viewConstant.MessageConstant;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,21 +14,21 @@ public class OutputView {
     }
 
     public static void printDate(int input) {
-        System.out.println("12월 " + input + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+        System.out.println(MessageConstant.DATE_MESSAGE_PREFIX + input + MessageConstant.DATE_MESSAGE_SUFFIX);
         System.out.println();
     }
 
     public static void printMenu(Map<Menu, Integer> menuOrder) {
-        System.out.println("<주문 메뉴>");
+        System.out.println(MessageConstant.ORDER_MENU_HEADER);
         for (Map.Entry<Menu, Integer> entry : menuOrder.entrySet()) {
-            System.out.println(entry.getKey().getName() + " " + entry.getValue() + "개");
+            System.out.println(entry.getKey().getName() + " " + entry.getValue() + MessageConstant.ORDER_MENU_COUNT);
         }
         System.out.println();
     }
 
     public static void printTotalPriceBeforeDiscount(int total) {
-        System.out.println("<할인 전 총주문 금액>");
-        System.out.println(formatPrice(total) + "원");
+        System.out.println(MessageConstant.TOTAL_PRICE_BEFORE_DISCOUNT_HEADER);
+        System.out.println(formatPrice(total) + MessageConstant.WON_SUFFIX);
         System.out.println();
     }
 
@@ -38,7 +39,7 @@ public class OutputView {
     }
 
     public static void printBenefits(int totalBeforeDiscount) {
-        System.out.println("<증정 메뉴>");
+        System.out.println(MessageConstant.BENEFITS_MENU_HEADER);
         Event event = Event.createChampagneEvent(totalBeforeDiscount);
         System.out.println(event.getEventName());
         System.out.println();
@@ -46,13 +47,13 @@ public class OutputView {
 
     public static void printBenefitsDetails(int christmasDayDiscount, int weekdayDiscount, int weekendDiscount,
                                             int specialDiscount, Event event) {
-        System.out.println("<혜택 내역>");
+        System.out.println(MessageConstant.BENEFITS_DETAILS_HEADER);
         List<String> benefits = new ArrayList<>();
-        addBenefit(benefits, "크리스마스 디데이 할인", christmasDayDiscount);
-        addBenefit(benefits, "평일 할인", weekdayDiscount);
-        addBenefit(benefits, "주말 할인", weekendDiscount);
-        addBenefit(benefits, "특별 할인", specialDiscount);
-        addBenefit(benefits, "증정 이벤트", event.getDiscount());
+        addBenefit(benefits, MessageConstant.CHRISTMAS_DAY_DISCOUNT, christmasDayDiscount);
+        addBenefit(benefits, MessageConstant.WEEKDAY_DISCOUNT, weekdayDiscount);
+        addBenefit(benefits, MessageConstant.WEEKEND_DISCOUNT, weekendDiscount);
+        addBenefit(benefits, MessageConstant.SPECIAL_DISCOUNT, specialDiscount);
+        addBenefit(benefits, MessageConstant.EVENT_DISCOUNT, event.getDiscount());
 
         printBenefits(benefits);
         System.out.println();
@@ -60,40 +61,40 @@ public class OutputView {
 
     private static void addBenefit(List<String> benefits, String benefitName, int discount) {
         if (discount != 0) {
-            benefits.add(benefitName + ": " + "-" + formatPrice(discount) + "원");
+            benefits.add(benefitName + ": " + MessageConstant.MINUS_PREFIX + formatPrice(discount)
+                    + MessageConstant.WON_SUFFIX);
         }
     }
 
     private static void printBenefits(List<String> benefits) {
         if (benefits.isEmpty()) {
-            System.out.println("없음");
+            System.out.println(MessageConstant.NO_BENEFITS_MESSAGE);
             return;
         }
         benefits.forEach(System.out::println);
     }
 
     public static void printTotalBenefits(int totalBenefits) {
-        System.out.println("<총혜택 금액>");
+        System.out.println(MessageConstant.TOTAL_BENEFITS_HEADER);
         String formattedTotalBenefits = formatPrice(totalBenefits);
 
         if (totalBenefits != 0) {
             formattedTotalBenefits = "-" + formattedTotalBenefits;
         }
 
-        System.out.println(formattedTotalBenefits + "원");
+        System.out.println(formattedTotalBenefits + MessageConstant.WON_SUFFIX);
         System.out.println();
     }
 
     public static void printTotalPriceAfterDiscount(int totalPriceAfterDiscount) {
-        System.out.println("<할인 후 예상 결제 금액>");
-        System.out.println(formatPrice(totalPriceAfterDiscount) + "원");
+        System.out.println(MessageConstant.TOTAL_PRICE_AFTER_DISCOUNT_HEADER);
+        System.out.println(formatPrice(totalPriceAfterDiscount) + MessageConstant.WON_SUFFIX);
         System.out.println();
     }
 
     public static void printBadge(String badge) {
-        System.out.println("<12월 이벤트 배지>");
+        System.out.println(MessageConstant.EVENT_BADGE_HEADER);
         System.out.println(badge);
         System.out.println();
     }
-
 }
