@@ -1,7 +1,6 @@
 package christmas.view;
 
 import christmas.constant.Menu;
-import christmas.domain.Event;
 import christmas.view.viewConstant.MessageConstant;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -38,22 +37,21 @@ public class OutputView {
         return formatter.format(price);
     }
 
-    public static void printBenefits(int totalBeforeDiscount) {
+    public static void printBenefits(int totalBeforeDiscount, String eventName) {
         System.out.println(MessageConstant.BENEFITS_MENU_HEADER);
-        Event event = Event.createChampagneEvent(totalBeforeDiscount);
-        System.out.println(event.getEventName());
+        System.out.println(eventName);
         System.out.println();
     }
 
     public static void printBenefitsDetails(int christmasDayDiscount, int weekdayDiscount, int weekendDiscount,
-                                            int specialDiscount, Event event) {
+                                            int specialDiscount, String eventName, int eventDiscount) {
         System.out.println(MessageConstant.BENEFITS_DETAILS_HEADER);
         List<String> benefits = new ArrayList<>();
         addBenefit(benefits, MessageConstant.CHRISTMAS_DAY_DISCOUNT, christmasDayDiscount);
         addBenefit(benefits, MessageConstant.WEEKDAY_DISCOUNT, weekdayDiscount);
         addBenefit(benefits, MessageConstant.WEEKEND_DISCOUNT, weekendDiscount);
         addBenefit(benefits, MessageConstant.SPECIAL_DISCOUNT, specialDiscount);
-        addBenefit(benefits, MessageConstant.EVENT_DISCOUNT, event.getDiscount());
+        addBenefit(benefits, MessageConstant.EVENT_DISCOUNT, eventDiscount);
 
         printBenefits(benefits);
         System.out.println();
