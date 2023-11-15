@@ -6,4 +6,7 @@ public class NumberConstant {
     public static final int MIN_MENU_COUNT = 1;
     public static final int MENU_DETAILS_LENGTH = 2;
     public static final int TOTAL_ORDER_AMOUNT = 20;
+
+    private NumberConstant() {
+    }
 }
