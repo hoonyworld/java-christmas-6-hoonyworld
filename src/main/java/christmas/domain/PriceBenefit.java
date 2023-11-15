@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.constant.Day;
 import christmas.constant.Menu;
+import java.util.List;
 import java.util.Map;
 
 public class PriceBenefit {
@@ -38,18 +39,19 @@ public class PriceBenefit {
         return 0;
     }
 
-    public int calculateSpecialDiscount(boolean hasStar) {
-        if (hasStar) {
-            return 1000;
-        } else {
-            return 0;
+    public int calculateSpecialDiscount(int date) {
+        List<Integer> starDays = Day.STARDAY.getDays();
+        int discount = 0;
+        if (starDays.contains(date)) {
+            discount = 1000;
         }
+        return discount;
     }
 
-    public int calculateTotalDiscount(int date, boolean hasStar) {
+    public int calculateTotalDiscount(int date) {
         return calculateChristmasDayDiscount(date) +
                 calculateWeekdayDiscount(date) +
                 calculateWeekendDiscount(date) +
-                calculateSpecialDiscount(hasStar);
+                calculateSpecialDiscount(date);
     }
 }
