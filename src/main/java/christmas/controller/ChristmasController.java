@@ -48,15 +48,15 @@ public class ChristmasController {
         int totalBeforeDiscount = order.calculateTotalPrice();
         Event event = Event.createChampagneEvent(totalBeforeDiscount);
 
-        OutputView.printBenefits(totalBeforeDiscount);
+        OutputView.printBenefits(totalBeforeDiscount, event.getEventName());
         OutputView.printBenefitsDetails(
                 priceBenefit.calculateChristmasDayDiscount(date),
                 priceBenefit.calculateWeekdayDiscount(date),
                 priceBenefit.calculateWeekendDiscount(date),
                 priceBenefit.calculateSpecialDiscount(date),
-                event
+                event.getEventName(),
+                event.getDiscount()
         );
-
         printFinalDetails(priceBenefit, date, totalBeforeDiscount, event);
     }
 
